@@ -1,0 +1,9 @@
+{
+	"name": "myazdfcmc",
+	"location": "eastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "458cb95c-0f53-46df-82aa-260bc49dba08",
+		"tenantId": "2f173612-6f45-4520-9df8-32d7ba5f2c44"
+	}
+}
