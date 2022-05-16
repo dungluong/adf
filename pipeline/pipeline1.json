@@ -244,7 +244,10 @@
 						"referenceName": "Excel1",
 						"type": "DatasetReference",
 						"parameters": {
-							"fileName": "CTS HN BCQT T2.2022-Edited.xlsx"
+							"fileName": {
+								"value": "@pipeline().parameters.fileName",
+								"type": "Expression"
+							}
 						}
 					}
 				],
@@ -253,7 +256,10 @@
 						"referenceName": "AzureSqlTable1",
 						"type": "DatasetReference",
 						"parameters": {
-							"tableName": "BCKD"
+							"tableName": {
+								"value": "@pipeline().parameters.tableName",
+								"type": "Expression"
+							}
 						}
 					}
 				]
