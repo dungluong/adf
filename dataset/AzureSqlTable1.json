@@ -14,7 +14,27 @@
 				"precision": 10
 			},
 			{
-				"name": "Name",
+				"name": "STT",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Chỉ tiêu",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Tháng/ Quý này",
+				"type": "nvarchar"
+			},
+			{
+				"name": " Tháng/ Quý trước ",
+				"type": "nvarchar"
+			},
+			{
+				"name": " Tháng/Quý cùng kỳ năm trước ",
+				"type": "nvarchar"
+			},
+			{
+				"name": " Kế hoạch Quý này ",
 				"type": "nvarchar"
 			}
 		],
