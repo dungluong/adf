@@ -6,14 +6,6 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"year": {
-				"type": "string",
-				"defaultValue": "2022"
-			},
-			"month": {
-				"type": "string",
-				"defaultValue": "2"
-			},
 			"fileName": {
 				"type": "string"
 			}
