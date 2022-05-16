@@ -5,13 +5,28 @@
 			"referenceName": "AzureBlobStorage1",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"year": {
+				"type": "string",
+				"defaultValue": "2022"
+			},
+			"month": {
+				"type": "string",
+				"defaultValue": "2"
+			},
+			"fileName": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "Excel",
 		"typeProperties": {
-			"sheetName": "1. BC KQKD CTY",
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "CTS HN BCQT T2.2022-Edited.xlsx",
+				"fileName": {
+					"value": "@dataset().fileName",
+					"type": "Expression"
+				},
 				"container": "mycontainer"
 			},
 			"firstRowAsHeader": true
