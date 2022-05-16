@@ -29,7 +29,7 @@
 						"upsertSettings": {
 							"useTempDB": true,
 							"keys": [
-								"STT"
+								"Chỉ tiêu"
 							]
 						},
 						"sqlWriterUseTableLock": false,
