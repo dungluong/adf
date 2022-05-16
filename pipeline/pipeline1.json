@@ -242,13 +242,19 @@
 				"inputs": [
 					{
 						"referenceName": "Excel1",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"fileName": "CTS HN BCQT T2.2022-Edited.xlsx"
+						}
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "AzureSqlTable1",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"tableName": "BCKD"
+						}
 					}
 				]
 			}
