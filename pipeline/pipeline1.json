@@ -32,6 +32,87 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"sink": {
+									"name": "Id",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "STT",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "STT",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Chỉ tiêu",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Chỉ tiêu",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Tháng/ Quý này",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Tháng/ Quý này",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Tháng/ Quý trước",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": " Tháng/ Quý trước ",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Tháng/Quý cùng kỳ năm trước",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": " Tháng/Quý cùng kỳ năm trước ",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Kế hoạch Quý này",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": " Kế hoạch Quý này ",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
