@@ -34,13 +34,6 @@
 						"type": "TabularTranslator",
 						"mappings": [
 							{
-								"sink": {
-									"name": "Id",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
 								"source": {
 									"name": "STT",
 									"type": "String",
