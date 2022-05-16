@@ -24,16 +24,13 @@
 						}
 					},
 					"sink": {
-						"type": "SqlServerSink",
+						"type": "AzureSqlSink",
 						"writeBehavior": "upsert",
 						"upsertSettings": {
-							"useTempDB": false,
-							"keys": [
-								"STT"
-							]
+							"useTempDB": true
 						},
 						"sqlWriterUseTableLock": false,
-						"tableOption": "autoCreate"
+						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
 					"translator": {
@@ -53,7 +50,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "SqlServerTable1",
+						"referenceName": "AzureSqlTable1",
 						"type": "DatasetReference"
 					}
 				]
