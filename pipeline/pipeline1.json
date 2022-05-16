@@ -267,7 +267,8 @@
 		],
 		"parameters": {
 			"fileName": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "CTS HN BCQT T2.2022-Edited.xlsx"
 			},
 			"tableName": {
 				"type": "string",
