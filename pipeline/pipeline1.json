@@ -270,7 +270,8 @@
 				"type": "string"
 			},
 			"tableName": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "BCKD"
 			}
 		},
 		"annotations": []
