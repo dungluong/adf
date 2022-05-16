@@ -9,11 +9,6 @@
 		"type": "AzureSqlTable",
 		"schema": [
 			{
-				"name": "Id",
-				"type": "int",
-				"precision": 10
-			},
-			{
 				"name": "STT",
 				"type": "nvarchar"
 			},
@@ -23,19 +18,75 @@
 			},
 			{
 				"name": "Tháng/ Quý này",
-				"type": "nvarchar"
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
 			},
 			{
 				"name": " Tháng/ Quý trước ",
-				"type": "nvarchar"
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
 			},
 			{
 				"name": " Tháng/Quý cùng kỳ năm trước ",
-				"type": "nvarchar"
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
 			},
 			{
 				"name": " Kế hoạch Quý này ",
-				"type": "nvarchar"
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": " Lũy kế đến Tháng/ Quý  này ",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": " Lũy kế cùng kỳ năm trước ",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": " Kế hoạch lũy kế đến Quý này ",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "Tăng trưởng so với tháng/quý trước",
+				"type": "decimal",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "Tăng trưởng so với tháng/quý cùng kỳ",
+				"type": "decimal",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "% /kế hoạch tháng/quý này",
+				"type": "decimal",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "Tăng trưởng lũy kế",
+				"type": "decimal",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "% kế hoạch lũy kế",
+				"type": "decimal",
+				"precision": 5,
+				"scale": 2
 			}
 		],
 		"typeProperties": {

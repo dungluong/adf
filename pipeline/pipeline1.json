@@ -71,8 +71,10 @@
 								},
 								"sink": {
 									"name": "Tháng/ Quý này",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 18
 								}
 							},
 							{
@@ -83,8 +85,10 @@
 								},
 								"sink": {
 									"name": " Tháng/ Quý trước ",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 18
 								}
 							},
 							{
@@ -95,8 +99,10 @@
 								},
 								"sink": {
 									"name": " Tháng/Quý cùng kỳ năm trước ",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 18
 								}
 							},
 							{
@@ -107,8 +113,122 @@
 								},
 								"sink": {
 									"name": " Kế hoạch Quý này ",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 18
+								}
+							},
+							{
+								"source": {
+									"name": "Lũy kế đến Tháng/ Quý  này",
 									"type": "String",
-									"physicalType": "nvarchar"
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": " Lũy kế đến Tháng/ Quý  này ",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 18
+								}
+							},
+							{
+								"source": {
+									"name": "Lũy kế cùng kỳ năm trước",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": " Lũy kế cùng kỳ năm trước ",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 18
+								}
+							},
+							{
+								"source": {
+									"name": "Kế hoạch lũy kế đến Quý này",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": " Kế hoạch lũy kế đến Quý này ",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 18
+								}
+							},
+							{
+								"source": {
+									"name": "Tăng trưởng so với tháng/quý trước",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Tăng trưởng so với tháng/quý trước",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "Tăng trưởng so với tháng/quý cùng kỳ",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Tăng trưởng so với tháng/quý cùng kỳ",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "% /kế hoạch tháng/quý này",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "% /kế hoạch tháng/quý này",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "Tăng trưởng lũy kế",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Tăng trưởng lũy kế",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "% kế hoạch lũy kế",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "% kế hoạch lũy kế",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
 								}
 							}
 						],
