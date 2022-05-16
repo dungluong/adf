@@ -13,6 +13,7 @@
 		"annotations": [],
 		"type": "Excel",
 		"typeProperties": {
+			"sheetName": "1. BC KQKD CTY",
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": {
