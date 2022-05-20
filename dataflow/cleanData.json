@@ -49,8 +49,10 @@
 				"dataCleaned filter({Chỉ tiêu} != 'Hàng hóa' && {Chỉ tiêu} != 'Dịch vụ') ~> filter1",
 				"filter1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     partitionFileNames:['Output.csv'],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink1"
 			]
 		}
 	}
