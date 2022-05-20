@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "OutputCSV",
+						"referenceName": "AzureSqlTable1",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
@@ -50,10 +50,31 @@
 				"dataCleaned filter({Chỉ tiêu} != 'Hàng hóa' && {Chỉ tiêu} != 'Dịch vụ') ~> filter1",
 				"filter1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     partitionFileNames:['Output.csv'],",
+				"     input(",
+				"          STT as string,",
+				"          {Chỉ tiêu} as string,",
+				"          {Tháng/ Quý này} as decimal(18,2),",
+				"          { Tháng/ Quý trước } as decimal(18,2),",
+				"          { Tháng/Quý cùng kỳ năm trước } as decimal(18,2),",
+				"          { Kế hoạch Quý này } as decimal(18,2),",
+				"          { Lũy kế đến Tháng/ Quý  này } as decimal(18,2),",
+				"          { Lũy kế cùng kỳ năm trước } as decimal(18,2),",
+				"          { Kế hoạch lũy kế đến Quý này } as decimal(18,2),",
+				"          {Tăng trưởng so với tháng/quý trước} as decimal(5,2),",
+				"          {Tăng trưởng so với tháng/quý cùng kỳ} as decimal(5,2),",
+				"          {% /kế hoạch tháng/quý này} as decimal(5,2),",
+				"          {Tăng trưởng lũy kế} as decimal(5,2),",
+				"          {% kế hoạch lũy kế} as decimal(5,2)",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     saveOrder: 1,",
+				"     errorHandlingOption: 'stopOnFirstError',",
 				"     partitionBy('hash', 1)) ~> sink1"
 			]
 		}
