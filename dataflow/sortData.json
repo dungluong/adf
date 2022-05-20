@@ -24,6 +24,9 @@
 			"transformations": [
 				{
 					"name": "sort1"
+				},
+				{
+					"name": "filter1"
 				}
 			],
 			"scriptLines": [
@@ -48,7 +51,8 @@
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> sql",
 				"sql sort(desc({Tháng/ Quý này}, false)) ~> sort1",
-				"sort1 sink(allowSchemaDrift: true,",
+				"sort1 filter({Tháng/ Quý này} != 0) ~> filter1",
+				"filter1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          STT as string,",
