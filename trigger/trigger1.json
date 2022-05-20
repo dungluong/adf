@@ -1,0 +1,28 @@
+{
+	"name": "trigger1",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pipeline1",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"fileName": "CTS HN BCQT T2.2022-Edited.xlsx",
+					"tableName": "BCKD"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/mycontainer/blobs/",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/f814587a-1b49-4080-9bc2-ac6fd6a07e71/resourceGroups/mysa/providers/Microsoft.Storage/storageAccounts/dlvstorage",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
