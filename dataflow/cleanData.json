@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "Excel1",
+						"referenceName": "AzureSqlTable1",
 						"type": "DatasetReference"
 					},
 					"name": "dataCleaned"
@@ -30,28 +30,30 @@
 				"source(output(",
 				"          STT as string,",
 				"          {Chỉ tiêu} as string,",
-				"          {Tháng/ Quý này} as long,",
-				"          {Tháng/ Quý trước} as long,",
-				"          {Tháng/Quý cùng kỳ năm trước} as long,",
-				"          {Kế hoạch Quý này} as double,",
-				"          {Lũy kế đến Tháng/ Quý  này} as long,",
-				"          {Lũy kế cùng kỳ năm trước} as long,",
-				"          {Kế hoạch lũy kế đến Quý này} as double,",
-				"          {Tăng trưởng so với tháng/quý trước} as double,",
-				"          {Tăng trưởng so với tháng/quý cùng kỳ} as double,",
-				"          {% /kế hoạch tháng/quý này} as double,",
-				"          {Tăng trưởng lũy kế} as double,",
-				"          {% kế hoạch lũy kế} as double",
+				"          {Tháng/ Quý này} as decimal(18,2),",
+				"          { Tháng/ Quý trước } as decimal(18,2),",
+				"          { Tháng/Quý cùng kỳ năm trước } as decimal(18,2),",
+				"          { Kế hoạch Quý này } as decimal(18,2),",
+				"          { Lũy kế đến Tháng/ Quý  này } as decimal(18,2),",
+				"          { Lũy kế cùng kỳ năm trước } as decimal(18,2),",
+				"          { Kế hoạch lũy kế đến Quý này } as decimal(18,2),",
+				"          {Tăng trưởng so với tháng/quý trước} as decimal(5,2),",
+				"          {Tăng trưởng so với tháng/quý cùng kỳ} as decimal(5,2),",
+				"          {% /kế hoạch tháng/quý này} as decimal(5,2),",
+				"          {Tăng trưởng lũy kế} as decimal(5,2),",
+				"          {% kế hoạch lũy kế} as decimal(5,2)",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> dataCleaned",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> dataCleaned",
 				"dataCleaned filter({Chỉ tiêu} != 'Hàng hóa' && {Chỉ tiêu} != 'Dịch vụ') ~> filter1",
 				"filter1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     partitionFileNames:['Output.csv'],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
+				"     saveOrder: 1,",
 				"     partitionBy('hash', 1)) ~> sink1"
 			]
 		}
