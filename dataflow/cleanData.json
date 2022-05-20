@@ -12,7 +12,15 @@
 					"name": "dataCleaned"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "OutputCSV",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "filter1"
@@ -38,7 +46,11 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> dataCleaned",
-				"dataCleaned filter({Chỉ tiêu} != 'Hàng hóa' && {Chỉ tiêu} != 'Dịch vụ') ~> filter1"
+				"dataCleaned filter({Chỉ tiêu} != 'Hàng hóa' && {Chỉ tiêu} != 'Dịch vụ') ~> filter1",
+				"filter1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
