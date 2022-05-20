@@ -1,0 +1,45 @@
+{
+	"name": "cleanData",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Excel1",
+						"type": "DatasetReference"
+					},
+					"name": "dataCleaned"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "filter1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          STT as string,",
+				"          {Chỉ tiêu} as string,",
+				"          {Tháng/ Quý này} as long,",
+				"          {Tháng/ Quý trước} as long,",
+				"          {Tháng/Quý cùng kỳ năm trước} as long,",
+				"          {Kế hoạch Quý này} as double,",
+				"          {Lũy kế đến Tháng/ Quý  này} as long,",
+				"          {Lũy kế cùng kỳ năm trước} as long,",
+				"          {Kế hoạch lũy kế đến Quý này} as double,",
+				"          {Tăng trưởng so với tháng/quý trước} as double,",
+				"          {Tăng trưởng so với tháng/quý cùng kỳ} as double,",
+				"          {% /kế hoạch tháng/quý này} as double,",
+				"          {Tăng trưởng lũy kế} as double,",
+				"          {% kế hoạch lũy kế} as double",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> dataCleaned",
+				"dataCleaned filter({Chỉ tiêu} != 'Hàng hóa' && {Chỉ tiêu} != 'Dịch vụ') ~> filter1"
+			]
+		}
+	}
+}
