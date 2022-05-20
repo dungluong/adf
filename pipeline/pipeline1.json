@@ -5,7 +5,14 @@
 			{
 				"name": "Copy data1",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Transform",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -297,7 +304,7 @@
 		"parameters": {
 			"fileName": {
 				"type": "string",
-				"defaultValue": "CTS HN BCQT T2.2022-Edited.xlsx"
+				"defaultValue": "OutputCSV.csv"
 			},
 			"tableName": {
 				"type": "string",
