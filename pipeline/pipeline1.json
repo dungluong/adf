@@ -403,7 +403,15 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "sortData",
-						"type": "DataFlowReference"
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"sql": {
+								"tableName": "BCKDClean"
+							},
+							"sink1": {
+								"tableName": "BCKDUpdate"
+							}
+						}
 					},
 					"compute": {
 						"coreCount": 8,
