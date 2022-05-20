@@ -293,6 +293,9 @@
 									"value": "@pipeline().parameters.tableName",
 									"type": "Expression"
 								}
+							},
+							"sink1": {
+								"fileName": "Output.csv"
 							}
 						}
 					},
