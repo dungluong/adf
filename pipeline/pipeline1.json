@@ -293,22 +293,6 @@
 									"value": "@pipeline().parameters.tableName",
 									"type": "Expression"
 								}
-							},
-							"sink1": {
-								"tableName": {
-									"value": "@pipeline().parameters.tableName",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceParameters": {
-							"sink1": {
-								"schemaLinkedService": {
-									"tableName": {
-										"value": "@pipeline().parameters.tableName",
-										"type": "Expression"
-									}
-								}
 							}
 						}
 					},
