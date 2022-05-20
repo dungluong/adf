@@ -47,7 +47,7 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> sql",
-				"sql sort(asc(STT, true)) ~> sort1",
+				"sql sort(desc({Tháng/ Quý này}, false)) ~> sort1",
 				"sort1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
