@@ -359,7 +359,10 @@
 				"inputs": [
 					{
 						"referenceName": "OutputCSV",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"fileName": "Output.csv"
+						}
 					}
 				],
 				"outputs": [
