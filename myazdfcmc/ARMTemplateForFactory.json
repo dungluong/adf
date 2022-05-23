@@ -22,6 +22,22 @@
 		"SqlServer1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SqlServer1'"
+		},
+		"trigger1_properties_pipeline1_parameters_fileName": {
+			"type": "string",
+			"defaultValue": "CTS HN BCQT T2.2022-Edited.xlsx"
+		},
+		"trigger1_properties_pipeline1_parameters_tableName": {
+			"type": "string",
+			"defaultValue": "BCKD"
+		},
+		"trigger1_properties_pipeline1_parameters_outputTableName": {
+			"type": "string",
+			"defaultValue": "BCKDClean"
+		},
+		"trigger1_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/f814587a-1b49-4080-9bc2-ac6fd6a07e71/resourceGroups/mysa/providers/Microsoft.Storage/storageAccounts/dlvstorage"
 		}
 	},
 	"variables": {
@@ -877,6 +893,40 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/AzureSqlTable1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/trigger1')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "pipeline1",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"fileName": "[parameters('trigger1_properties_pipeline1_parameters_fileName')]",
+							"tableName": "[parameters('trigger1_properties_pipeline1_parameters_tableName')]",
+							"outputTableName": "[parameters('trigger1_properties_pipeline1_parameters_outputTableName')]"
+						}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/mycontainer/blobs/",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('trigger1_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/pipeline1')]"
 			]
 		}
 	]

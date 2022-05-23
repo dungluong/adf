@@ -23,6 +23,22 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SqlServer1'"
 		},
+		"trigger1_properties_pipeline1_parameters_fileName": {
+			"type": "string",
+			"defaultValue": "CTS HN BCQT T2.2022-Edited.xlsx"
+		},
+		"trigger1_properties_pipeline1_parameters_tableName": {
+			"type": "string",
+			"defaultValue": "BCKD"
+		},
+		"trigger1_properties_pipeline1_parameters_outputTableName": {
+			"type": "string",
+			"defaultValue": "BCKDClean"
+		},
+		"trigger1_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/f814587a-1b49-4080-9bc2-ac6fd6a07e71/resourceGroups/mysa/providers/Microsoft.Storage/storageAccounts/dlvstorage"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -61,6 +77,18 @@
 					},
 					"SqlServer1_connectionString": {
 						"value": "[parameters('SqlServer1_connectionString')]"
+					},
+					"trigger1_properties_pipeline1_parameters_fileName": {
+						"value": "[parameters('trigger1_properties_pipeline1_parameters_fileName')]"
+					},
+					"trigger1_properties_pipeline1_parameters_tableName": {
+						"value": "[parameters('trigger1_properties_pipeline1_parameters_tableName')]"
+					},
+					"trigger1_properties_pipeline1_parameters_outputTableName": {
+						"value": "[parameters('trigger1_properties_pipeline1_parameters_outputTableName')]"
+					},
+					"trigger1_properties_typeProperties_scope": {
+						"value": "[parameters('trigger1_properties_typeProperties_scope')]"
 					}
 				}
 			},
