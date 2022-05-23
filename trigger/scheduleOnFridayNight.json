@@ -3,18 +3,7 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
-		"pipelines": [
-			{
-				"pipelineReference": {
-					"referenceName": "pipeline1",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"fileName": "CTS HN BCQT T2.2022-Edited.xlsx",
-					"tableName": "BCKD"
-				}
-			}
-		],
+		"pipelines": [],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
