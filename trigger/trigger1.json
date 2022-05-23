@@ -19,6 +19,7 @@
 		"type": "BlobEventsTrigger",
 		"typeProperties": {
 			"blobPathBeginsWith": "/mycontainer/blobs/",
+			"blobPathEndsWith": ".xlsx",
 			"ignoreEmptyBlobs": true,
 			"scope": "/subscriptions/f814587a-1b49-4080-9bc2-ac6fd6a07e71/resourceGroups/mysa/providers/Microsoft.Storage/storageAccounts/dlvstorage",
 			"events": [
