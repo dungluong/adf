@@ -16,12 +16,6 @@
 		},
 		"SqlServer1_connectionString": {
 			"value": ""
-		},
-		"trigger1_properties_pipeline1_parameters_fileName": {
-			"value": "CTS HN BCQT T2.2022-Edited.xlsx"
-		},
-		"trigger1_properties_pipeline1_parameters_tableName": {
-			"value": "BCKD"
 		}
 	}
 }

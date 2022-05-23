@@ -22,14 +22,6 @@
 		"SqlServer1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SqlServer1'"
-		},
-		"trigger1_properties_pipeline1_parameters_fileName": {
-			"type": "string",
-			"defaultValue": "CTS HN BCQT T2.2022-Edited.xlsx"
-		},
-		"trigger1_properties_pipeline1_parameters_tableName": {
-			"type": "string",
-			"defaultValue": "BCKD"
 		}
 	},
 	"variables": {
@@ -209,7 +201,8 @@
 				},
 				"parameters": {
 					"fileName": {
-						"type": "string"
+						"type": "string",
+						"defaultValue": "CTS HN BCQT T2.2022-Edited.xlsx"
 					}
 				},
 				"annotations": [],
@@ -230,6 +223,203 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/OutputCSV')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"fileName": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().fileName",
+							"type": "Expression"
+						},
+						"container": "mycontainer"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/cleanData')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "AzureSqlTable1",
+								"type": "DatasetReference"
+							},
+							"name": "dataCleaned"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "OutputCSV",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "filter1"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          STT as string,",
+						"          {Chỉ tiêu} as string,",
+						"          {Tháng/ Quý này} as decimal(18,2),",
+						"          { Tháng/ Quý trước } as decimal(18,2),",
+						"          { Tháng/Quý cùng kỳ năm trước } as decimal(18,2),",
+						"          { Kế hoạch Quý này } as decimal(18,2),",
+						"          { Lũy kế đến Tháng/ Quý  này } as decimal(18,2),",
+						"          { Lũy kế cùng kỳ năm trước } as decimal(18,2),",
+						"          { Kế hoạch lũy kế đến Quý này } as decimal(18,2),",
+						"          {Tăng trưởng so với tháng/quý trước} as decimal(5,2),",
+						"          {Tăng trưởng so với tháng/quý cùng kỳ} as decimal(5,2),",
+						"          {% /kế hoạch tháng/quý này} as decimal(5,2),",
+						"          {Tăng trưởng lũy kế} as decimal(5,2),",
+						"          {% kế hoạch lũy kế} as decimal(5,2)",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> dataCleaned",
+						"dataCleaned filter({Chỉ tiêu} != 'Hàng hóa' && {Chỉ tiêu} != 'Dịch vụ') ~> filter1",
+						"filter1 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     partitionFileNames:['Output.csv'],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     saveOrder: 1,",
+						"     partitionBy('hash', 1)) ~> sink1"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/AzureSqlTable1')]",
+				"[concat(variables('factoryId'), '/datasets/OutputCSV')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sortData')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "AzureSqlTable1",
+								"type": "DatasetReference"
+							},
+							"name": "sql"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "AzureSqlTable1",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "sort1"
+						},
+						{
+							"name": "filter1"
+						},
+						{
+							"name": "derivedColumn1"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          STT as string,",
+						"          {Chỉ tiêu} as string,",
+						"          {Tháng/ Quý này} as decimal(18,2),",
+						"          { Tháng/ Quý trước } as decimal(18,2),",
+						"          { Tháng/Quý cùng kỳ năm trước } as decimal(18,2),",
+						"          { Kế hoạch Quý này } as decimal(18,2),",
+						"          { Lũy kế đến Tháng/ Quý  này } as decimal(18,2),",
+						"          { Lũy kế cùng kỳ năm trước } as decimal(18,2),",
+						"          { Kế hoạch lũy kế đến Quý này } as decimal(18,2),",
+						"          {Tăng trưởng so với tháng/quý trước} as decimal(5,2),",
+						"          {Tăng trưởng so với tháng/quý cùng kỳ} as decimal(5,2),",
+						"          {% /kế hoạch tháng/quý này} as decimal(5,2),",
+						"          {Tăng trưởng lũy kế} as decimal(5,2),",
+						"          {% kế hoạch lũy kế} as decimal(5,2)",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> sql",
+						"sql sort(desc({Tháng/ Quý này}, false)) ~> sort1",
+						"sort1 filter({Tháng/ Quý này} != 0) ~> filter1",
+						"filter1 derive({Tháng/ Quý Này Dương} = {Tháng/ Quý này} > 0) ~> derivedColumn1",
+						"derivedColumn1 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          STT as string,",
+						"          {Chỉ tiêu} as string,",
+						"          {Tháng/ Quý này} as decimal(18,2),",
+						"          { Tháng/ Quý trước } as decimal(18,2),",
+						"          { Tháng/Quý cùng kỳ năm trước } as decimal(18,2),",
+						"          { Kế hoạch Quý này } as decimal(18,2),",
+						"          { Lũy kế đến Tháng/ Quý  này } as decimal(18,2),",
+						"          { Lũy kế cùng kỳ năm trước } as decimal(18,2),",
+						"          { Kế hoạch lũy kế đến Quý này } as decimal(18,2),",
+						"          {Tăng trưởng so với tháng/quý trước} as decimal(5,2),",
+						"          {Tăng trưởng so với tháng/quý cùng kỳ} as decimal(5,2),",
+						"          {% /kế hoạch tháng/quý này} as decimal(5,2),",
+						"          {Tăng trưởng lũy kế} as decimal(5,2),",
+						"          {% kế hoạch lũy kế} as decimal(5,2)",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     truncate:true,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/AzureSqlTable1')]"
 			]
 		},
 		{
@@ -499,6 +689,166 @@
 								}
 							}
 						]
+					},
+					{
+						"name": "cleanData",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [
+							{
+								"activity": "Copy data1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "cleanData",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"dataCleaned": {
+										"tableName": {
+											"value": "@pipeline().parameters.tableName",
+											"type": "Expression"
+										}
+									},
+									"sink1": {
+										"fileName": "Output.csv"
+									}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					},
+					{
+						"name": "Copy data2",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "cleanData",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "upsert",
+								"upsertSettings": {
+									"useTempDB": true,
+									"keys": [
+										"Chỉ tiêu"
+									]
+								},
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "OutputCSV",
+								"type": "DatasetReference",
+								"parameters": {
+									"fileName": "Output.csv"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "AzureSqlTable1",
+								"type": "DatasetReference",
+								"parameters": {
+									"tableName": {
+										"value": "@pipeline().parameters.outputTableName",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "sortData",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [
+							{
+								"activity": "Copy data2",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "sortData",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"sql": {
+										"tableName": "BCKDClean"
+									},
+									"sink1": {
+										"tableName": "BCKDUpdate"
+									}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
 					}
 				],
 				"policy": {
@@ -513,46 +863,20 @@
 					"tableName": {
 						"type": "string",
 						"defaultValue": "BCKD"
+					},
+					"outputTableName": {
+						"type": "string",
+						"defaultValue": "BCKDClean"
 					}
 				},
 				"annotations": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/Excel1')]",
-				"[concat(variables('factoryId'), '/datasets/AzureSqlTable1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/trigger1')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "pipeline1",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"fileName": "[parameters('trigger1_properties_pipeline1_parameters_fileName')]",
-							"tableName": "[parameters('trigger1_properties_pipeline1_parameters_tableName')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 3,
-						"startTime": "2022-05-19T02:49:00Z",
-						"timeZone": "UTC"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/pipeline1')]"
+				"[concat(variables('factoryId'), '/datasets/AzureSqlTable1')]",
+				"[concat(variables('factoryId'), '/dataflows/cleanData')]",
+				"[concat(variables('factoryId'), '/datasets/OutputCSV')]",
+				"[concat(variables('factoryId'), '/dataflows/sortData')]"
 			]
 		}
 	]

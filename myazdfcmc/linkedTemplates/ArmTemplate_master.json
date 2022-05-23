@@ -23,14 +23,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SqlServer1'"
 		},
-		"trigger1_properties_pipeline1_parameters_fileName": {
-			"type": "string",
-			"defaultValue": "CTS HN BCQT T2.2022-Edited.xlsx"
-		},
-		"trigger1_properties_pipeline1_parameters_tableName": {
-			"type": "string",
-			"defaultValue": "BCKD"
-		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -69,12 +61,6 @@
 					},
 					"SqlServer1_connectionString": {
 						"value": "[parameters('SqlServer1_connectionString')]"
-					},
-					"trigger1_properties_pipeline1_parameters_fileName": {
-						"value": "[parameters('trigger1_properties_pipeline1_parameters_fileName')]"
-					},
-					"trigger1_properties_pipeline1_parameters_tableName": {
-						"value": "[parameters('trigger1_properties_pipeline1_parameters_tableName')]"
 					}
 				}
 			},
