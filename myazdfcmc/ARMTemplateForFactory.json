@@ -901,7 +901,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Stopped",
+				"runtimeState": "Started",
 				"pipelines": [
 					{
 						"pipelineReference": {
@@ -921,7 +921,8 @@
 					"ignoreEmptyBlobs": true,
 					"scope": "[parameters('trigger1_properties_typeProperties_scope')]",
 					"events": [
-						"Microsoft.Storage.BlobCreated"
+						"Microsoft.Storage.BlobCreated",
+						"Microsoft.Storage.BlobDeleted"
 					]
 				}
 			},
