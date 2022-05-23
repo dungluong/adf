@@ -918,6 +918,7 @@
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
 					"blobPathBeginsWith": "/mycontainer/blobs/",
+					"blobPathEndsWith": ".xlsx",
 					"ignoreEmptyBlobs": true,
 					"scope": "[parameters('trigger1_properties_typeProperties_scope')]",
 					"events": [
